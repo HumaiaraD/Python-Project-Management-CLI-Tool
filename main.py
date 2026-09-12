@@ -1,6 +1,7 @@
 from models.task import Task
 from models.project import Project
 from models.user import User
+from utils.storage import save_data_to_file
 
 import argparse
 import sys
@@ -13,12 +14,13 @@ def add_task(args):
     if not user:
         user = User(args.username, args.email)
         users[args.username] = user
-    task = Task(args.title, args.status, args.due_date, user)
+    task = Task(args.title, args.status, user)
     project = projects.get(args.project_name)
     if not project:
-        project = Project(args.project_name, args.due_date)
+        project = Project(args.project_name, args.description, args.due_date)
         projects[args.project_name] = project
     project.add_task(task)
+    save_data_to_file(users, projects, "data/data.json")
 
 def list_tasks(args):
     project = projects.get(args.project_name)
@@ -36,7 +38,8 @@ subparsers = parser.add_subparsers()
 add_parser = subparsers.add_parser("add_task", help="Add a new task to a project")
 add_parser.add_argument("title", type=str, help="Title of the task")
 add_parser.add_argument("status", type=str, help="Status of the task")
-add_parser.add_argument("due_date", type=str, help="Due date of the task")
+add_parser.add_argument("description", type=str, help="Description of the task")
+add_parser.add_argument("due_date", help="Due date of the task")
 add_parser.add_argument("username", type=str, help="Username of the user to assign the task to")
 add_parser.add_argument("email", type=str, help="Email of the user to assign the task to")
 add_parser.add_argument("project_name", type=str, help="Name of the project to add the task to")

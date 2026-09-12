@@ -1,0 +1,21 @@
+{
+    "users": {
+        "Bob": {
+            "email": "bob@example.com",
+            "projects": []
+        }
+    },
+    "projects": {
+        "Expense Tracker": {
+            "description": "Create an expense tracker",
+            "due_date": "2026-10-15",
+            "tasks": [
+                {
+                    "title": "Write README",
+                    "status": "Completed",
+                    "assigned_to": "Bob"
+                }
+            ]
+        }
+    }
+}

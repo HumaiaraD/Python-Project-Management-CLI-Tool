@@ -8,6 +8,19 @@ class Task:
     def __repr__(self):
         return f"Task: {self.title}, Status: {self.status}, Assigned to: {self.assigned_to}"
 
+    @property
+    def status(self):
+        return self._status
+
+    @status.setter
+    def status(self, value):
+        allowed = ["Pending", "In progress", "Completed"]
+
+        if value not in allowed:
+            raise ValueError("Status must be pending, in progress or completed")
+
+        self._status = value
+
     def update_status(self, new_status):
         self.status = new_status
         print(f"Task '{self.title}' status updated to '{self.status}'.")
